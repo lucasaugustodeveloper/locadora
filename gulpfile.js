@@ -11,10 +11,10 @@ const data = require('gulp-data')
 const clean = require('gulp-clean')
 
 const files = {
-    js   : './src/assets/javascripts/**/*',
+    js   : './src/assets/javascripts/**/*.js',
     img  : './src/assets/images/**/*',
-    sass : './src/assets/sass/**/*',
-    css  : './src/assets/stylesheets/**/*'
+    sass : './src/assets/sass/**/*.scss',
+    css  : './src/assets/stylesheets/**/*.css'
 }
 
 gulp.task('default', () => {})
