@@ -24,11 +24,16 @@
   },
   "homepage": "https://github.com/lucasaugustofrontend/locadora#readme",
   "devDependencies": {
-    "browser-sync": "^2.18.13",
     "eslint": "^4.5.0",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-data": "^1.2.1",
+    "gulp-eslint": "^4.0.0",
     "gulp-imagemin": "^3.3.0",
+    "gulp-pug": "^3.3.0",
     "gulp-sass": "^3.1.0",
-    "gulp-scss-lint": "^0.5.0"
+    "gulp-scss-lint": "^0.5.0",
+    "gulp-sourcemaps": "^2.6.1"
   }
 }
