@@ -9,21 +9,35 @@
 - CSS Preprocessor [SASS](http://sass-lang.com/ "Stylus")
 
 ## Folder Structure
- .
- |__ assets
- |   |__ images
- |   |__ javascripts
- |   |__ sass
- |   |__stylesheet
- |__ .editorconfig
- |__ .gitignore
- |__ .travis.yml
- |__ catalogo.json
- |__ CONTRIBUTING.md
- |__ gulpfile.js
- |__ LICENSE.md
- |__ package.json
- |__ README.md
+
+    .
+    |__ docs
+    |   |__ assets
+    |   |   |__ images
+    |   |   |__ javascripts
+    |   |   |__ stylesheets
+    |   |__ index.html
+    |__ src
+    |   |__ assets
+    |       |__ images
+    |       |__ javascripts
+    |       |__ sass
+    |       |__stylesheet
+    |       |__ views
+    |       |   |__ include
+    |       |   |__ layouts
+    |       |   |__ partials
+    |       |   |__ index.pug
+    |__ .editorconfig
+    |__ .eslint.json
+    |__ .gitignore
+    |__ .travis.yml
+    |__ catalogo.json
+    |__ CONTRIBUTING.md
+    |__ gulpfile.js
+    |__ LICENSE.md
+    |__ package.json
+    |__ README.md
 
 ## Run the project locally
 **1 -** Prepare the enviroment
