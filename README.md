@@ -42,13 +42,13 @@
 ## Run the project locally
 **1 -** Prepare the enviroment
 ```sh
-$ yarn dev --dev gulp-cli
+$ npm install -g gulp-cli
 ```
 **2 -** Clone the project and install the dependencies:
 ```sh
 $ git clone https://github.com/lucasaugustofrontend/locadora.git
 $ cd locadora
-$ yarn
+$ npm install
 ```
 **3 -** Run static server and livereload
 ```sh
@@ -60,9 +60,9 @@ $ gulp server
  - `$ gulp server`: Watch the files and build and start a static server.
 
 ## Contributing
-Find on our [roadmap](https://github.com/csshortcut/csshortcut-app/issues/1) the next steps of the project ;)
+Find on our [roadmap](https://github.com/lucasaugustofrontend/locadora/issues) the next steps of the project ;)
 <br>
-Want to contribute? [Follow these recommendations](https://github.com/csshortcut/csshortcut-app/blob/master/CONTRIBUTING.md).
+Want to contribute? [Follow these recommendations](https://github.com/lucasaugustofrontend/locadora/blob/master/CONTRIBUTING.md).
 
 ## License
-[MIT License](https://github.com/csshortcut/csshortcut-app/blob/master/LICENSE.md) © [Lucas Augusto](http://lucasaugustodesigner.com.br/)
+[MIT License](https://github.com/lucasaugustofrontend/locadora/blob/master/LICENSE.md) © [Lucas Augusto](http://lucasaugustodesigner.com.br/)
