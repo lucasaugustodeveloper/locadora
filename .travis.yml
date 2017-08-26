@@ -3,7 +3,7 @@ node_js: stable
 sudo: required
 
 before_script:
-- npm run lint
+- gem install scss_lint
 
 scripts:
 - npm run lint
