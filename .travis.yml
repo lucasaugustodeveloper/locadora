@@ -6,4 +6,4 @@ before_script:
 - npm run lint
 
 scripts:
-- npm run gulp lint
+- npm run lint
