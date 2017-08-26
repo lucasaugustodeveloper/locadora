@@ -1,13 +1,14 @@
 const gulp = require('gulp')
 const connect = require('gulp-connect')
 const sass = require('gulp-sass')
-const imagemin = require('imagemin')
+const imagemin = require('gulp-imagemin')
 const sassLint = require('gulp-scss-lint')
 const lint = require('gulp-eslint')
 const prefixer = require('gulp-autoprefixer')
 const sourcemaps = require('gulp-sourcemaps')
 const pug = require('gulp-pug')
 const data = require('gulp-data')
+const clean = require('gulp-clean')
 
 const files = {
     js   : './src/assets/javascripts/**/*',
@@ -17,6 +18,15 @@ const files = {
 }
 
 gulp.task('default', () => {})
+
+gulp.task('copyJs', ['clean'], () => {
+    gulp.src(files.js)
+        .pipe(gulp.dest('./docs/assets/javascripts'))
+})
+gulp.task('clean', () => {
+    return gulp.src('./docs/assets/javascripts')
+        .pipe(clean())
+})
 
 gulp.task('connect', () => {
     connect.server({
@@ -33,17 +43,12 @@ gulp.task('pug', () => {
 
 gulp.task('sass', () => {
     gulp.src(files.sass)
-        .pipe(sourcemaps.init())
-        .pipe(sass({
-            outputStyle: 'compress'
-        }).on('error', sass.logError()))
-        .pipe(prefixer({
-            browser: ['last 15 version'],
-            cascade: false
-        }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('assets/stylesheets'))
-        .pipe( connect.reload() )
+        .pipe( sourcemaps.init() )
+        .pipe( sass({
+            outputStyle: 'compressed'
+        }).on('error', sass.logError) )
+        .pipe( sourcemaps.write('.') )
+        .pipe( gulp.dest('./docs/assets/stylesheets') )
 })
 
 gulp.task('lintScss', () => {
@@ -51,8 +56,7 @@ gulp.task('lintScss', () => {
         .pipe(sassLint({
             filePipeOutput: 'report.json'
         }))
-        .pipe(gulp.dest('assets/sassReports'))
-        .pipe(connect.reload())
+        .pipe(gulp.dest('./src/assets/sassReports'))
 })
 
 gulp.task('lintJs', () => {
@@ -69,9 +73,8 @@ gulp.task('imagemin', () => {
             interlaced: true,
             progressive: true,
             optimizationLevel: 7,
-            svgoPlugins: [{removeViewBox: true}]
         }))
-        .pipe(gulp.dest('assets/images'))
+        .pipe( gulp.dest('./docs/assets/images') )
 })
 
 gulp.task('watch', () => {
@@ -92,5 +95,6 @@ gulp.task('watch', () => {
     ], ['lint', connect.reload()])
 })
 
-gulp.task('build', () => {})
+gulp.task('build', ['copyJs', 'pug', 'sass', 'copyJs', 'imagemin'])
 gulp.task('livereload', ['connect', 'watch'])
+gulp.task('lints', ['lintScss', 'lintJs'])

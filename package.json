@@ -4,7 +4,9 @@
   "description": "Desenvolvimento de uma pequena lista de filmes com ES6",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gulp": "gulp",
+    "lint": "gulp lints",
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "eslint": "^4.5.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean": "^0.3.2",
     "gulp-connect": "^5.0.0",
     "gulp-data": "^1.2.1",
     "gulp-eslint": "^4.0.0",
