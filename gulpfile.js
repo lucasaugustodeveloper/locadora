@@ -44,16 +44,16 @@ gulp.task('pug', () => {
 
 gulp.task('sass', () => {
   gulp.src(files.sass)
-    .pipe( sourcemaps.init() )
-    .pipe( sass({
+    .pipe(sourcemaps.init())
+    .pipe(sass({
       outputStyle: 'compressed'
-    }).on('error', sass.logError) )
+    }).on('error', sass.logError))
     .pipe(prefixer({
       browsers: ['last 15 versions'],
       cascade: false
     }))
-    .pipe( sourcemaps.write('.') )
-    .pipe( gulp.dest('./dist/assets/stylesheets') )
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist/assets/stylesheets'))
 })
 
 gulp.task('lintScss', () => {
@@ -69,7 +69,7 @@ gulp.task('lintJs', () => {
     .pipe(lint())
     .pipe(lint.format())
     .pipe(lint.failAfterError())
-    .pipe( connect.reload() )
+    .pipe(connect.reload())
 })
 
 gulp.task('imagemin', () => {
@@ -88,7 +88,7 @@ gulp.task('watch', () => {
   ], ['lintScss', 'sass'])
 
   gulp.watch([
-    './src/assets/stylesheets/**/*'
+    './dist/assets/stylesheets/**/*'
   ], [connect.reload()])
 
   gulp.watch([
