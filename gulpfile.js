@@ -9,6 +9,7 @@ const sourcemaps = require('gulp-sourcemaps')
 const pug = require('gulp-pug')
 const data = require('gulp-data')
 const clean = require('gulp-clean')
+const ghpages = require('gulp-gh-pages')
 
 const files = {
   js   : './src/assets/javascripts/**/*.js',
@@ -21,16 +22,16 @@ gulp.task('default', () => {})
 
 gulp.task('copyJs', ['clean'], () => {
   gulp.src(files.js)
-    .pipe(gulp.dest('./docs/assets/javascripts'))
+    .pipe(gulp.dest('./dist/assets/javascripts'))
 })
 gulp.task('clean', () => {
-  return gulp.src('./docs/assets/javascripts')
+  return gulp.src('./dist/assets/javascripts')
     .pipe(clean())
 })
 
 gulp.task('connect', () => {
   connect.server({
-    root: './docs',
+    root: './dist',
     livereload: true
   })
 })
@@ -38,7 +39,7 @@ gulp.task('connect', () => {
 gulp.task('pug', () => {
   gulp.src('./src/views/*.pug')
     .pipe(pug())
-    .pipe(gulp.dest('./docs'))
+    .pipe(gulp.dest('./dist'))
 })
 
 gulp.task('sass', () => {
@@ -52,7 +53,7 @@ gulp.task('sass', () => {
       cascade: false
     }))
     .pipe( sourcemaps.write('.') )
-    .pipe( gulp.dest('./docs/assets/stylesheets') )
+    .pipe( gulp.dest('./dist/assets/stylesheets') )
 })
 
 gulp.task('lintScss', () => {
@@ -78,7 +79,7 @@ gulp.task('imagemin', () => {
       progressive: true,
       optimizationLevel: 7,
     }))
-    .pipe( gulp.dest('./docs/assets/images') )
+    .pipe( gulp.dest('./dist/assets/images') )
 })
 
 gulp.task('watch', () => {
@@ -91,7 +92,7 @@ gulp.task('watch', () => {
   ], [connect.reload()])
 
   gulp.watch([
-    './docs/*.html'
+    './dist/*.html'
   ], [connect.reload()])
 
   gulp.watch([
@@ -99,6 +100,13 @@ gulp.task('watch', () => {
   ], ['lint', connect.reload()])
 })
 
+gulp.task('ghpages', () => {
+  gulp.src('./dist/**/*')
+    .pipe(ghpages())
+})
+
 gulp.task('build', ['copyJs', 'pug', 'sass', 'copyJs', 'imagemin'])
 gulp.task('livereload', ['connect', 'watch'])
 gulp.task('lints', ['lintScss', 'lintJs'])
+gulp.task('deploy', ['build', 'ghpages'])
+
