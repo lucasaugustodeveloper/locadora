@@ -1,4 +1,0 @@
-@mixin shadow ($x, $y, $radius, $spread, $color) {
-  /* offset-x | offset-y | blur-radius | spread-radius | color */
-  box-shadow: $x $y $radius, $spread, $color;
-}
