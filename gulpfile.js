@@ -2,14 +2,15 @@ const gulp = require('gulp')
 const connect = require('gulp-connect')
 const sass = require('gulp-sass')
 const imagemin = require('gulp-imagemin')
-const sassLint = require('gulp-scss-lint')
 const lint = require('gulp-eslint')
 const prefixer = require('gulp-autoprefixer')
 const sourcemaps = require('gulp-sourcemaps')
-const pug = require('gulp-pug')
-const data = require('gulp-data')
 const clean = require('gulp-clean')
 const ghpages = require('gulp-gh-pages')
+const usemin = require('gulp-usemin')
+const concat = require('gulp-concat')
+const uglify = require('gulp-uglify')
+const htmlmin = require('gulp-htmlmin')
 
 const files = {
   js   : './src/assets/javascripts/**/*.js',
@@ -20,12 +21,12 @@ const files = {
 
 gulp.task('default', () => {})
 
-gulp.task('copyJs', ['clean'], () => {
-  gulp.src(files.js)
-    .pipe(gulp.dest('./dist/assets/javascripts'))
+gulp.task('copy', ['clean'], () => {
+  gulp.src(['./src/*.html', files.sass, files.css])
+    .pipe(gulp.dest('./dist'))
 })
 gulp.task('clean', () => {
-  return gulp.src('./dist/assets/javascripts')
+  return gulp.src('./dist')
     .pipe(clean())
 })
 
@@ -34,12 +35,6 @@ gulp.task('connect', () => {
     root: './dist',
     livereload: true
   })
-})
-
-gulp.task('pug', () => {
-  gulp.src('./src/views/*.pug')
-    .pipe(pug())
-    .pipe(gulp.dest('./dist'))
 })
 
 gulp.task('sass', () => {
@@ -56,12 +51,19 @@ gulp.task('sass', () => {
     .pipe(gulp.dest('./dist/assets/stylesheets'))
 })
 
-gulp.task('lintScss', () => {
-  gulp.src(files.sass)
-    .pipe(sassLint({
-      filePipeOutput: 'report.json'
+gulp.task('usemin', ['copyHtml'], () => {
+  gulp.src('dist/**/*.html')
+    .pipe(usemin({
+      js: [concat, uglify]
     }))
-    .pipe(gulp.dest('./src/assets/sassReports'))
+    .pipe(gulp.dest('dist'))
+})
+gulp.task('htmlmin', () => {
+  gulp.src('./src/**/*.html')
+    .pipe(htmlmin({
+      collapseWhitespace: true
+    }))
+    .pipe(gulp.dest('./dist'))
 })
 
 gulp.task('lintJs', () => {
@@ -93,7 +95,7 @@ gulp.task('watch', () => {
 
   gulp.watch([
     './dist/*.html'
-  ], [connect.reload()])
+  ], ['htmlmin', 'usemin', connect.reload()])
 
   gulp.watch([
     './src/assets/javascripts/**/*'
