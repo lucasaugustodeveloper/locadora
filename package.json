@@ -1,44 +1,8 @@
 {
-  "name": "locadora",
-  "version": "0.1.0",
-  "description": "Desenvolvimento de uma pequena lista de filmes com ES6",
-  "main": "index.js",
   "scripts": {
     "gulp": "gulp",
     "lint": "gulp lints",
     "build": "gulp build",
     "start": "gulp livereload"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lucasaugustofrontend/locadora.git"
-  },
-  "keywords": [
-    "ES6",
-    "JS",
-    "Javascript",
-    "Locadora",
-    "Lucas Augusto"
-  ],
-  "author": "Lucas Augusto",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lucasaugustofrontend/locadora/issues"
-  },
-  "homepage": "https://github.com/lucasaugustofrontend/locadora#readme",
-  "devDependencies": {
-    "eslint": "^4.5.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-clean": "^0.3.2",
-    "gulp-connect": "^5.0.0",
-    "gulp-data": "^1.2.1",
-    "gulp-eslint": "^4.0.0",
-    "gulp-gh-pages": "^0.5.4",
-    "gulp-imagemin": "^3.3.0",
-    "gulp-pug": "^3.3.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-scss-lint": "^0.5.0",
-    "gulp-sourcemaps": "^2.6.1"
   }
 }
