@@ -11,88 +11,92 @@ const data = require('gulp-data')
 const clean = require('gulp-clean')
 
 const files = {
-    js   : './src/assets/javascripts/**/*.js',
-    img  : './src/assets/images/**/*',
-    sass : './src/assets/sass/**/*.scss',
-    css  : './src/assets/stylesheets/**/*.css'
+  js   : './src/assets/javascripts/**/*.js',
+  img  : './src/assets/images/**/*',
+  sass : './src/assets/sass/**/*.scss',
+  css  : './src/assets/stylesheets/**/*.css'
 }
 
 gulp.task('default', () => {})
 
 gulp.task('copyJs', ['clean'], () => {
-    gulp.src(files.js)
-        .pipe(gulp.dest('./docs/assets/javascripts'))
+  gulp.src(files.js)
+    .pipe(gulp.dest('./docs/assets/javascripts'))
 })
 gulp.task('clean', () => {
-    return gulp.src('./docs/assets/javascripts')
-        .pipe(clean())
+  return gulp.src('./docs/assets/javascripts')
+    .pipe(clean())
 })
 
 gulp.task('connect', () => {
-    connect.server({
-        root: './docs',
-        livereload: true
-    })
+  connect.server({
+    root: './docs',
+    livereload: true
+  })
 })
 
 gulp.task('pug', () => {
-    gulp.src('./src/views/*.pug')
-        .pipe(pug())
-        .pipe(gulp.dest('./docs'))
+  gulp.src('./src/views/*.pug')
+    .pipe(pug())
+    .pipe(gulp.dest('./docs'))
 })
 
 gulp.task('sass', () => {
-    gulp.src(files.sass)
-        .pipe( sourcemaps.init() )
-        .pipe( sass({
-            outputStyle: 'compressed'
-        }).on('error', sass.logError) )
-        .pipe( sourcemaps.write('.') )
-        .pipe( gulp.dest('./docs/assets/stylesheets') )
+  gulp.src(files.sass)
+    .pipe( sourcemaps.init() )
+    .pipe( sass({
+      outputStyle: 'compressed'
+    }).on('error', sass.logError) )
+    .pipe(prefixer({
+      browsers: ['last 15 versions'],
+      cascade: false
+    }))
+    .pipe( sourcemaps.write('.') )
+    .pipe( gulp.dest('./docs/assets/stylesheets') )
 })
 
 gulp.task('lintScss', () => {
-    gulp.src(files.sass)
-        .pipe(sassLint({
-            filePipeOutput: 'report.json'
-        }))
-        .pipe(gulp.dest('./src/assets/sassReports'))
+  gulp.src(files.sass)
+    .pipe(sassLint({
+      filePipeOutput: 'report.json'
+    }))
+    .pipe(gulp.dest('./src/assets/sassReports'))
 })
 
 gulp.task('lintJs', () => {
-    gulp.src(files.js)
-        .pipe(lint())
-        .pipe(lint.format())
-        .pipe(lint.failAfterError())
-        .pipe( connect.reload() )
+  gulp.src(files.js)
+    .pipe(lint())
+    .pipe(lint.format())
+    .pipe(lint.failAfterError())
+    .pipe( connect.reload() )
 })
 
 gulp.task('imagemin', () => {
-    gulp.src(files.img)
-        .pipe(imagemin({
-            interlaced: true,
-            progressive: true,
-            optimizationLevel: 7,
-        }))
-        .pipe( gulp.dest('./docs/assets/images') )
+  gulp.src(files.img)
+    .pipe(imagemin({
+      interlaced: true,
+      progressive: true,
+      optimizationLevel: 7,
+    }))
+    .pipe( gulp.dest('./docs/assets/images') )
 })
 
 gulp.task('watch', () => {
-    gulp.watch([
-        './src/assets/sass/**/*'
-    ], ['lintScss', 'sass'])
+  gulp.watch([
+    './src/assets/sass/**/*'
+  ], ['lintScss', 'sass'])
 
-    gulp.watch([
-        './src/assets/stylesheets/**/*'
-    ], [connect.reload()])
+  gulp.watch([
+    './src/assets/stylesheets/**/*'
+  ], [connect.reload()])
 
-    gulp.watch([
-        './docs/*.html'
-    ], [connect.reload()])
+  gulp.watch([
+    './docs/*.html'
+  ], [connect.reload()])
 
-    gulp.watch([
-        './src/assets/javascripts/**/*'
-    ], ['lint', connect.reload()])
+  gulp.watch([
+    './src/assets/javascripts/**/*'
+  ], ['lint', connect.reload()])
 })
 
 gulp.task('build', ['copyJs', 'pug', 'sass', 'copyJs', 'imagemin'])
