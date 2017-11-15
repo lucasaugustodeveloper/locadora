@@ -1,1 +1,91 @@
 // main
+.content {
+  background: colors(color, base);
+  position: relative;
+  padding: pxtorem(8) 0;
+
+  .film {
+    cursor: pointer;
+
+    &_title {
+      font: {
+        family: 'Roboto Slab', sans-serif;
+        size: pxtorem(22);
+      }
+      text-align: center;
+    }
+    &_img {
+      position: relative;
+      width: 100%;
+
+      overflow: hidden;
+    }
+    &_trailer {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: -25%;
+      width: 1280px;
+      height: 720px;
+      .btnClose {
+        background: {
+          color: colors(color, base);
+          image: url('../images/delete.svg');
+          size: 55%;
+          position: center;
+          repeat: no-repeat;
+        }
+        border: none;
+        border-radius: pxtorem(64);
+        color: transparent;
+        position: absolute;
+        right: -20px;
+        top: -20px;
+        width: 32px;
+        height: 32px;
+      }
+    }
+    img {
+      display: block;
+      width: 90%;
+      margin-left: 5%;
+      transition: all 1s ease-in-out;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+
+    button {
+      background: {
+        color: transparent;
+        size: 80%;
+        position: center;
+        repeat: no-repeat;
+      }
+      border: none;
+      color: transparent;
+      width: pxtorem(32);
+      height: pxtorem(32);
+    }
+
+    &.prev {
+      left: pxtorem(-15);
+      button {
+        background-image: url('../images/prev.svg');
+      }
+    }
+    &.next {
+      right: pxtorem(-15);
+      button {
+        background-image: url('../images/next.svg');
+        transform: rotate(360deg);
+      }
+    }
+
+  }
+}
