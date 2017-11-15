@@ -69,6 +69,18 @@
       "price": 50,
       "photo": "assets/images/img(9).jpg",
       "video": "mBwsUD7jYCI"
+    },
+    {
+      "title": "Liga da Justiça",
+      "year": 2017,
+      "photo": "assets/images/img(10).jpg",
+      "video": "tn-mXzGt-go"
+    },
+    {
+      "title": "Pantera Negra",
+      "year": 2018,
+      "photo": "assets/images/img(11).jpg",
+      "video": "aYbAbGOJOsM"
     }
   ]
 }
