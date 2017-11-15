@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Locadora Lucas Augusto</title>
+  <title>Locadora</title>
+  <link rel="stylesheet" href="assets/stylesheets/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Roboto+Slab:700|Roboto:300,400" rel="stylesheet">
 </head>
-<body>
+<body class="container-fluid">
+  <header class="header row align-items-center">
+    <div class="header_logo col-lg-2">
+      <img src="assets/images/logo.png" alt="Lucas Augusto">
+    </div>
+    <div class="header_title col-lg-7">Locadora Lucas Augusto</div>
+    <div class="header_search col-lg-3">
+      <form action="" method="post" class="row">
+        <div class="form-group row">
+          <div class="col-lg-10">
+            <label for="search">Search this film...</label>
+            <input class="form-control" type="text" id="search" name="film" placeholder="Search you film...">
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btn-default">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </header>
 
+  <main class="content container-fluid">
+    <div class="arrow prev">
+      <button type="button" id="btnPrev">prev</button>
+    </div>
+
+    <div class="films row"></div>
+
+    <div class="arrow next">
+      <button type="button" id="btnNext">next</button>
+    </div>
+  </main>
+  <footer class="footer row">
+    <p>
+      todos os direitos reservador
+      <a href="https://lucasaugusto.eti.br">Lucas Augusto</a>&copy;2017.
+    </p>
+  </footer>
 </body>
 </html>
