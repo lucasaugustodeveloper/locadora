@@ -32,7 +32,7 @@ gulp.task('clean', () => {
 
 gulp.task('connect', () => {
   connect.server({
-    root: './dist',
+    root: './src',
     livereload: true
   })
 })
@@ -48,18 +48,18 @@ gulp.task('sass', () => {
       cascade: false
     }))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist/assets/stylesheets'))
+    .pipe(gulp.dest('./src/assets/stylesheets'))
 })
 
-gulp.task('usemin', ['copyHtml'], () => {
-  gulp.src('dist/**/*.html')
+gulp.task('usemin', () => {
+  return gulp.src('dist/**/*.html')
     .pipe(usemin({
       js: [concat, uglify]
     }))
     .pipe(gulp.dest('dist'))
 })
-gulp.task('htmlmin', () => {
-  gulp.src('./src/**/*.html')
+gulp.task('htmlmin', ['usemin'], () => {
+  gulp.src('./src/*.html')
     .pipe(htmlmin({
       collapseWhitespace: true
     }))
@@ -81,25 +81,27 @@ gulp.task('imagemin', () => {
       progressive: true,
       optimizationLevel: 7,
     }))
-    .pipe( gulp.dest('./dist/assets/images') )
+    .pipe(gulp.dest('./dist/assets/images'))
+})
+
+gulp.task('watchHTML', () => {
+  gulp.src('./src/*.html')
+    .pipe(connect.reload())
+})
+gulp.task('watchCSS', () => {
+  gulp.src(files.css)
+    .pipe(connect.reload())
+})
+gulp.task('watchJS', () => {
+  gulp.src(files.js)
+    .pipe(connect.reload())
 })
 
 gulp.task('watch', () => {
-  gulp.watch([
-    './src/assets/sass/**/*'
-  ], ['lintScss', 'sass'])
-
-  gulp.watch([
-    './dist/assets/stylesheets/**/*'
-  ], [connect.reload()])
-
-  gulp.watch([
-    './dist/*.html'
-  ], ['htmlmin', 'usemin', connect.reload()])
-
-  gulp.watch([
-    './src/assets/javascripts/**/*'
-  ], ['lint', connect.reload()])
+  gulp.watch(['./src/*.html'], ['watchHTML'])
+  gulp.watch(['./src/assets/stylesheets/**/*.css'], ['watchCSS'])
+  gulp.watch(['./src/assets/javascripts/**/*.js'], ['lintJs', 'watchJS'])
+  gulp.watch(['./src/assets/sass/**/*.scss'], ['sass'])
 })
 
 gulp.task('ghpages', () => {
@@ -107,7 +109,7 @@ gulp.task('ghpages', () => {
     .pipe(ghpages())
 })
 
-gulp.task('build', ['copyJs', 'pug', 'sass', 'copyJs', 'imagemin'])
+gulp.task('build', ['copy', 'sass', 'imagemin'])
 gulp.task('livereload', ['connect', 'watch'])
 gulp.task('lints', ['lintScss', 'lintJs'])
 gulp.task('deploy', ['build', 'ghpages'])
