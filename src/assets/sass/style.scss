@@ -2,6 +2,7 @@
   '_partials/functions',
   '_partials/mixins',
   '_partials/reset',
+  '_partials/globals',
 
   '_framework/_bootstrap',
   '_framework/_bootstrap-grid',
@@ -10,3 +11,10 @@
   '_block/header',
   '_block/main',
   '_block/footer';
+
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
+  body {
+    overflow-x: hidden;
+  }
